@@ -68,7 +68,7 @@ var work = {
 	}
 };
 
-var project = {
+var projects = {
 	projects: [
 		{
 			title: 'lorem ipsum',
@@ -81,10 +81,10 @@ var project = {
 		projects: $('#projects'),
 	},
 	display: function(){
-		this.el.projects.append(HTMLprojectStart);
-
-		this.el.projectEntry = $('.project-entry');
 		for (var i = 0; i < this.projects.length; i++) {
+			this.el.projects.append(HTMLprojectStart);
+			this.el.projectEntry = $('.project-entry');
+
 			var HTMLproject = HTMLprojectTitle.replace('%data%', this.projects[i].title);
 			HTMLproject += HTMLprojectDates.replace('%data%', this.projects[i].dates);
 			HTMLproject += HTMLprojectDescription.replace('%data%', this.projects[i].description);
@@ -121,10 +121,10 @@ var education = {
 		education: $('#education')
 	},
 	display: function(){
-		this.el.education.append(HTMLschoolStart);
-
-		this.el.educationEntry = $('.education-entry');
 		for (var i = 0; i < this.schools.length; i++) {
+			this.el.education.append(HTMLschoolStart);
+			this.el.educationEntry = $('.education-entry').last();
+
 			var HTMLeducation = HTMLschoolName.replace('%data%', this.schools[i].name);
 			HTMLeducation += HTMLschoolDegree.replace('%data%', this.schools[i].degree);
 			HTMLeducation += HTMLschoolDates.replace('%data%', this.schools[i].dates);
@@ -134,24 +134,27 @@ var education = {
 				HTMLeducation += HTMLschoolMajor.replace('%data%', this.schools[i].majors[x]);
 			}
 
-			this.el.educationEntry.append(HTMLeducation);
+			this.el.educationEntry.last().append(HTMLeducation);
 		}
 
-		this.el.educationEntry.append(HTMLonlineClasses);
+		this.el.education.append(HTMLonlineClasses);
 
 		for (var i = 0; i < this.onlineCourses.length; i++) {
+			this.el.education.append(HTMLschoolStart);
+			this.el.educationEntry = $('.education-entry').last();
+
 			var HTMLonlineCourses = HTMLonlineTitle.replace('%data%', this.onlineCourses[i].title);
 			HTMLonlineCourses += HTMLonlineSchool.replace('%data%', this.onlineCourses[i].school);
 			HTMLonlineCourses += HTMLonlineDates.replace('%data%', this.onlineCourses[i].dates);
 			HTMLonlineCourses += HTMLonlineURL.replace('%data%', this.onlineCourses[i].url);
 
-			this.el.educationEntry.append(HTMLonlineCourses);
+			this.el.educationEntry.last().append(HTMLonlineCourses);
 		}
 	}
 };
 
 bio.display();
 work.display();
-project.display();
+projects.display();
 education.display();
-// $('#mapDiv').append(googleMap);
+$('#mapDiv').append(googleMap);
